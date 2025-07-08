@@ -51,7 +51,7 @@ export function ImpactSection() {
                 from the moment patients are en route.
               </blockquote>
               <div className="flex items-center justify-center mt-8 space-x-4">
-                <div className="w-12 h-12 bg-blue-300 rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-blue-300 rounded-full hidden lg:flex items-center justify-center">
                   <span className="text-blue-800 font-bold text-lg">TD</span>
                 </div>
                 <div className="text-left">

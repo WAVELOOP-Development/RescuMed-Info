@@ -1,3 +1,9 @@
+"use client";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,9 +14,56 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, Clock } from "lucide-react";
+import { toast } from "sonner";
+import { Mail, Phone, Clock, Loader2 } from "lucide-react";
+
+// Form validation schema
+const contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export function ContactSection() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('https://us-central1-rescumed-release.cloudfunctions.net/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        toast.success("Message sent successfully! We'll get back to you within 24 hours.");
+        reset();
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.error || "Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <section id="contact" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -73,7 +126,7 @@ export function ContactSection() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label
@@ -82,7 +135,17 @@ export function ContactSection() {
                       >
                         Name
                       </label>
-                      <Input id="name" placeholder="Your full name" />
+                      <Input
+                        id="name"
+                        placeholder="Your full name"
+                        {...register("name")}
+                        className={errors.name ? "border-red-500" : ""}
+                      />
+                      {errors.name && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.name.message}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label
@@ -95,7 +158,14 @@ export function ContactSection() {
                         id="email"
                         type="email"
                         placeholder="your.email@example.com"
+                        {...register("email")}
+                        className={errors.email ? "border-red-500" : ""}
                       />
+                      {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.email.message}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div>
@@ -109,10 +179,28 @@ export function ContactSection() {
                       id="message"
                       placeholder="Tell us about your emergency care needs..."
                       rows={5}
+                      {...register("message")}
+                      className={errors.message ? "border-red-500" : ""}
                     />
+                    {errors.message && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.message.message}
+                      </p>
+                    )}
                   </div>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                    Send Message
+                  <Button 
+                    type="submit"
+                    className="w-full bg-blue-600 hover:bg-blue-700"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Sending Message...
+                      </>
+                    ) : (
+                      "Send Message"
+                    )}
                   </Button>
                 </form>
               </CardContent>
