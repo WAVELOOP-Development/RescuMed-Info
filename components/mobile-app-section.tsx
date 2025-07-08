@@ -1,7 +1,67 @@
+"use client";
+
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
+import { Carousel, CarouselContent, CarouselItem, CarouselApi } from "@/components/ui/carousel";
+import { useEffect, useRef, useState } from "react";
 
 export function MobileAppSection() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    // Set up auto-scroll
+    const startAutoScroll = () => {
+      intervalRef.current = setInterval(() => {
+        if (api.canScrollNext()) {
+          api.scrollNext();
+        } else {
+          api.scrollTo(0);
+        }
+      }, 3000);
+    };
+
+    // Stop auto-scroll
+    const stopAutoScroll = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+
+    // Update current slide
+    const updateCurrent = () => {
+      setCurrent(api.selectedScrollSnap());
+    };
+
+    api.on("select", updateCurrent);
+    
+    startAutoScroll();
+
+    // Pause on hover
+    const handleMouseEnter = () => stopAutoScroll();
+    const handleMouseLeave = () => startAutoScroll();
+
+    const carouselElement = document.querySelector('[data-carousel="true"]');
+    if (carouselElement) {
+      carouselElement.addEventListener('mouseenter', handleMouseEnter);
+      carouselElement.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    return () => {
+      stopAutoScroll();
+      api.off("select", updateCurrent);
+      if (carouselElement) {
+        carouselElement.removeEventListener('mouseenter', handleMouseEnter);
+        carouselElement.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, [api]);
   return (
     <section className="py-20 bg-blue-50">
       <div className="container mx-auto px-6 md:px-8 lg:px-12">
@@ -66,18 +126,43 @@ export function MobileAppSection() {
 
           <div className="text-center">
             <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-md mx-auto">
-              <div className="w-full h-[450px] rounded-xl overflow-hidden">
-                <Image
-                  src="/rescuemed.png"
-                  alt="Mobile App Interface Preview"
-                  width={500}
-                  height={750}
-                  className="w-full h-full object-cover"
-                  priority
-                />
+              <Carousel
+                setApi={setApi}
+                className="w-full"
+                data-carousel="true"
+              >
+                <CarouselContent>
+                  <CarouselItem>
+                    <div className="w-full h-[450px] rounded-xl overflow-hidden">
+                      <Image
+                        src="/rescuemed.png"
+                        alt="Mobile App Interface Preview"
+                        width={500}
+                        height={750}
+                        className="w-full h-full object-cover"
+                        priority
+                      />
+                    </div>
+                  </CarouselItem>
+                  <CarouselItem>
+                    <div className="w-full h-[450px] rounded-xl overflow-hidden">
+                      <Image
+                        src="/resumed-web.png"
+                        alt="Web Dashboard Preview"
+                        width={500}
+                        height={750}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </CarouselItem>
+                </CarouselContent>
+              </Carousel>
+              <div className="flex justify-center space-x-2 mt-4">
+                <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${current === 0 ? 'bg-blue-600 animate-pulse' : 'bg-gray-300'}`}></div>
+                <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${current === 1 ? 'bg-blue-600 animate-pulse' : 'bg-gray-300'}`}></div>
               </div>
-              <p className="text-gray-500 mt-4 text-sm">
-                Mobile App Interface Preview
+              <p className="text-gray-500 mt-2 text-sm">
+                Mobile App & Web Dashboard Preview
               </p>
             </div>
           </div>
