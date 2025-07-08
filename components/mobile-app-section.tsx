@@ -1,15 +1,19 @@
-import { CheckCircle, Smartphone } from "lucide-react"
+import { CheckCircle } from "lucide-react";
+import Image from "next/image";
 
 export function MobileAppSection() {
   return (
     <section className="py-20 bg-blue-50">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12">
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Mobile App for Ambulance Teams</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              Mobile App for Ambulance Teams
+            </h2>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Designed specifically for emergency responders, our mobile app provides intuitive tools that work
-              seamlessly during high-stress situations.
+              Designed specifically for emergency responders, our mobile app
+              provides intuitive tools that work seamlessly during high-stress
+              situations.
             </p>
 
             <div className="space-y-6">
@@ -18,9 +22,12 @@ export function MobileAppSection() {
                   <CheckCircle className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">One-Touch Emergency Alerts</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    One-Touch Emergency Alerts
+                  </h3>
                   <p className="text-gray-600">
-                    Instantly notify hospitals of incoming patients with critical information
+                    Instantly notify hospitals of incoming patients with
+                    critical information
                   </p>
                 </div>
               </div>
@@ -30,9 +37,12 @@ export function MobileAppSection() {
                   <CheckCircle className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Patient Data Entry</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Patient Data Entry
+                  </h3>
                   <p className="text-gray-600">
-                    Quick and secure patient information recording with voice-to-text support
+                    Quick and secure patient information recording with
+                    voice-to-text support
                   </p>
                 </div>
               </div>
@@ -42,9 +52,12 @@ export function MobileAppSection() {
                   <CheckCircle className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Hospital Communication</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Hospital Communication
+                  </h3>
                   <p className="text-gray-600">
-                    Direct messaging and calling capabilities with hospital emergency departments
+                    Direct messaging and calling capabilities with hospital
+                    emergency departments
                   </p>
                 </div>
               </div>
@@ -52,15 +65,24 @@ export function MobileAppSection() {
           </div>
 
           <div className="text-center">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm mx-auto">
-              <div className="w-full h-96 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
-                <Smartphone className="w-24 h-24 text-blue-600" />
+            <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-md mx-auto">
+              <div className="w-full h-[450px] rounded-xl overflow-hidden">
+                <Image
+                  src="/rescuemed.png"
+                  alt="Mobile App Interface Preview"
+                  width={500}
+                  height={750}
+                  className="w-full h-full object-cover"
+                  priority
+                />
               </div>
-              <p className="text-gray-500 mt-4 text-sm">Mobile App Interface Preview</p>
+              <p className="text-gray-500 mt-4 text-sm">
+                Mobile App Interface Preview
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
