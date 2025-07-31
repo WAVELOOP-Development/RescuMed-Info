@@ -76,6 +76,7 @@ const Navbar1 = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -153,13 +154,13 @@ const Navbar1 = ({
             <Link href={logo.url} className="flex items-center">
               <Image src={logoImage} alt="Logo" width={120} height={30} />
             </Link>
-            <Sheet>
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
                   <Menu className="size-4" />
                 </Button>
               </SheetTrigger>
-              <SheetContent className="overflow-y-auto flex flex-col justify-between">
+              <SheetContent className="overflow-y-auto w-3/5 flex flex-col justify-between">
                 <div>
                   <SheetHeader>
                     <SheetTitle>
@@ -167,28 +168,28 @@ const Navbar1 = ({
                         <Image
                           src={logoImage}
                           alt="Logo"
-                          width={120}
+                          width={150}
                           height={30}
-                          className="mt-4"
+                          className=""
                         />
                       </Link>
                     </SheetTitle>
                   </SheetHeader>
-                  <div className="flex flex-col gap-6 p-4">
+                  <div className="flex flex-col gap-6 py-8">
                     <Accordion
                       type="single"
                       collapsible
-                      className="flex w-full flex-col gap-4"
+                      className="flex w-full flex-col gap-6"
                     >
-                      {menu.map((item) => renderMobileMenuItem(item))}
+                      {menu.map((item) => renderMobileMenuItem(item, () => setIsSheetOpen(false)))}
                     </Accordion>
                   </div>
-                  <div className="flex items-center px-4 py-8">
+                  <div className="flex items-center py-8">
                     <Button
                       asChild
                       className="bg-blue-600 hover:bg-blue-700 text-white font-semibold w-full"
                     >
-                      <Link href="#contact">Contact Us</Link>
+                      <Link href="#contact" onClick={() => setIsSheetOpen(false)}>Contact Us</Link>
                     </Button>
                   </div>
                 </div>
@@ -198,25 +199,25 @@ const Navbar1 = ({
                   </h3>
                   <div className="flex space-x-4 justify-center lg:justify-start">
                     <Link
-                      href="#"
+                      href="https://www.instagram.com/waveloop.dev/"
                       className="text-gray-400 hover:text-black transition-colors p-1"
                     >
                       <Instagram size={20} />
                     </Link>
                     <Link
-                      href="#"
+                      href="https://www.linkedin.com/company/waveloop-dev/"
                       className="text-gray-400 hover:text-black transition-colors p-1"
                     >
                       <Linkedin size={20} />
                     </Link>
                     <Link
-                      href="#"
+                      href="https://github.com/WAVELOOP-Development"
                       className="text-gray-400 hover:text-black transition-colors p-1"
                     >
                       <Github size={20} />
                     </Link>
                     <Link
-                      href="#"
+                      href="https://facebook.com/waveloop_dev"
                       className="text-gray-400 hover:text-black transition-colors p-1"
                     >
                       <Facebook size={20} />
@@ -272,7 +273,7 @@ const renderMenuItem = (item: MenuItem) => {
   );
 };
 
-const renderMobileMenuItem = (item: MenuItem) => {
+const renderMobileMenuItem = (item: MenuItem, closeSheet?: () => void) => {
   if (item.items) {
     return (
       <AccordionItem key={item.title} value={item.title} className="border-b-0">
@@ -281,7 +282,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
         </AccordionTrigger>
         <AccordionContent className="mt-2">
           {item.items.map((subItem) => (
-            <SubMenuLink key={subItem.title} item={subItem} />
+            <SubMenuLink key={subItem.title} item={subItem} closeSheet={closeSheet} />
           ))}
         </AccordionContent>
       </AccordionItem>
@@ -289,17 +290,23 @@ const renderMobileMenuItem = (item: MenuItem) => {
   }
 
   return (
-    <a key={item.title} href={item.url} className="text-md font-semibold">
+    <a 
+      key={item.title} 
+      href={item.url} 
+      className="text-md font-semibold"
+      onClick={closeSheet}
+    >
       {item.title}
     </a>
   );
 };
 
-const SubMenuLink = ({ item }: { item: MenuItem }) => {
+const SubMenuLink = ({ item, closeSheet }: { item: MenuItem; closeSheet?: () => void }) => {
   return (
     <a
       className="flex flex-row gap-3 rounded-md p-2 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-accent-foreground"
       href={item.url}
+      onClick={closeSheet}
     >
       <div className="text-foreground">{item.icon}</div>
       <div>

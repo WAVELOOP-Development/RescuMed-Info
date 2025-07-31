@@ -14,7 +14,8 @@ import { Play, Clock, Sparkles } from "lucide-react";
 export function HeroSection() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const demoVideoUrl = "https://www.youtube.com/embed/eupATqJh0tU?si=DNbxY-kMBlHy8R4i";
+  const demoVideoUrl =
+    "https://www.youtube.com/embed/eupATqJh0tU?si=DNbxY-kMBlHy8R4i";
 
   return (
     <section className="relative bg-white overflow-hidden">
@@ -29,15 +30,12 @@ export function HeroSection() {
         <source src="./rescumed-landing.m4v" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div className="absolute flex justify-start items-end inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black to-transparent text-center p-8">
+      <div className="absolute flex justify-start items-end inset-x-0 bottom-0 bg-gradient-to-t from-black to-transparent text-center p-8">
         <div className="max-w-6xl mx-auto">
-          <p className="text-4xl md:text-6xl font-bold text-white mb-4">
-            Transforming Emergency Care in{" "}
-          </p>
-          <p className="text-4xl md:text-6xl font-bold text-white mb-6 ">
-            <span className="text-blue-600">Sri Lanka</span>
-          </p>
-          <p className="text-md md:text-2xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight md:leading-tight">
+            Advancing Emergency Care to Protect Lives <span className="text-blue-500">Worldwide</span>
+            </p>
+          <p className="text-md md:text-xl text-gray-300 mb-8">
             RescueMed is a life-saving emergency communication platform that
             connects ambulances and hospitals, reducing response times and
             improving patient outcomes through real-time tracking and secure
@@ -48,8 +46,8 @@ export function HeroSection() {
               size="lg"
               className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3"
               onClick={() => {
-                document.getElementById('about')?.scrollIntoView({
-                  behavior: 'smooth'
+                document.getElementById("about")?.scrollIntoView({
+                  behavior: "smooth",
                 });
               }}
             >
@@ -91,17 +89,20 @@ export function HeroSection() {
                         <div className="absolute bottom-6 left-8 w-4 h-4 bg-blue-300 rounded-full animate-pulse delay-700"></div>
                         <div className="absolute bottom-8 right-4 w-2 h-2 bg-blue-400 rounded-full animate-pulse delay-500"></div>
                       </div>
-                      
+
                       <div className="relative z-10 text-center space-y-4">
                         <div className="relative">
                           <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                             <Play className="w-8 h-8 text-blue-600 ml-1" />
                           </div>
                           <div className="absolute -top-1 -right-1">
-                            <Clock className="w-6 h-6 text-blue-500 animate-spin" style={{ animationDuration: '3s' }} />
+                            <Clock
+                              className="w-6 h-6 text-blue-500 animate-spin"
+                              style={{ animationDuration: "3s" }}
+                            />
                           </div>
                         </div>
-                        
+
                         <div className="space-y-2">
                           <div className="flex items-center justify-center gap-2">
                             <Sparkles className="w-5 h-5 text-blue-500 animate-pulse" />
@@ -111,15 +112,21 @@ export function HeroSection() {
                             <Sparkles className="w-5 h-5 text-blue-500 animate-pulse delay-500" />
                           </div>
                           <p className="text-blue-600 text-sm max-w-xs mx-auto leading-relaxed">
-                            We're preparing an amazing demo video to showcase RescueMed's life-saving features
+                            We're preparing an amazing demo video to showcase
+                            RescueMed's life-saving features
                           </p>
                         </div>
-                        
+
                         <div className="mt-6 w-48 mx-auto">
                           <div className="w-full bg-blue-200 rounded-full h-2">
-                            <div className="bg-blue-500 h-2 rounded-full animate-pulse" style={{ width: '65%' }}></div>
+                            <div
+                              className="bg-blue-500 h-2 rounded-full animate-pulse"
+                              style={{ width: "65%" }}
+                            ></div>
                           </div>
-                          <p className="text-xs text-blue-500 mt-2 font-medium">Processing</p>
+                          <p className="text-xs text-blue-500 mt-2 font-medium">
+                            Processing
+                          </p>
                         </div>
                       </div>
                     </div>

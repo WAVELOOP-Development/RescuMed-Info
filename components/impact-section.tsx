@@ -59,8 +59,7 @@ export function ImpactSection() {
                     Mr. D.M.T. Dissanayake.
                   </div>
                   <div className="text-blue-200">
-                    In-charge of cardiographers,Cardiology Unit,National
-                    Hospital Kandy.
+                    In-charge of cardiographers, Cardiology Unit, National Hospital Kandy.
                   </div>
                 </div>
               </div>

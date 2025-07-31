@@ -67,10 +67,10 @@ export function MobileAppSection() {
       <div className="container mx-auto px-6 md:px-8 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl md:text-4xl text-center lg:text-left font-bold text-gray-900 mb-6">
               Mobile App for Ambulance Teams
             </h2>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl text-center lg:text-left text-gray-600 mb-8 leading-relaxed">
               Designed specifically for emergency responders, our mobile app
               provides intuitive tools that work seamlessly during high-stress
               situations.
