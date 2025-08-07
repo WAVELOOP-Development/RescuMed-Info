@@ -11,9 +11,9 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title:
-    "RescuMed Emergency communication platform that connects ambulances and hospitals in Sri Lanka",
+    "RescuMed Emergency communication platform that connects ambulances and hospitals in all around the world.",
   description:
-    "Emergency communication platform that connects ambulances and hospitals in Sri Lanka, reducing response times and improving patient outcomes through real-time tracking and secure data sharing.",
+    "Emergency communication platform that connects ambulances and hospitals in all around the world, reducing response times and improving patient outcomes through real-time tracking and secure data sharing.",
 };
 
 export default function RootLayout({

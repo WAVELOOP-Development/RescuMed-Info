@@ -15,7 +15,7 @@ export function HeroSection() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const demoVideoUrl =
-    "https://www.youtube.com/embed/eupATqJh0tU?si=DNbxY-kMBlHy8R4i";
+    "https://www.youtube.com/embed/-_5kO9bUwfU?si=yA0QiqxgVe5449bF";
 
   return (
     <section className="relative bg-white overflow-hidden">
@@ -32,9 +32,10 @@ export function HeroSection() {
       </video>
       <div className="absolute flex justify-start items-end inset-x-0 bottom-0 bg-gradient-to-t from-black to-transparent text-center p-8">
         <div className="max-w-6xl mx-auto">
-            <p className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight md:leading-tight">
-            Advancing Emergency Care to Protect Lives <span className="text-blue-500">Worldwide</span>
-            </p>
+          <p className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight md:leading-tight">
+            Advancing Emergency Care to Protect Lives{" "}
+            <span className="text-blue-500">Worldwide</span>
+          </p>
           <p className="text-md md:text-xl text-gray-300 mb-8">
             RescueMed is a life-saving emergency communication platform that
             connects ambulances and hospitals, reducing response times and
@@ -74,11 +75,8 @@ export function HeroSection() {
                     <iframe
                       width="100%"
                       height="100%"
-                      src={`${demoVideoUrl}`}
-                      title="YouTube video player"
-                      frameBorder="0"
+                      src="https://www.youtube.com/embed/-_5kO9bUwfU?si=yA0QiqxgVe5449bF"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerPolicy="strict-origin-when-cross-origin"
                       allowFullScreen
                     ></iframe>
                   ) : (
